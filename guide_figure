@@ -1,0 +1,133 @@
+# STEMI Péi — Guide des figures du mémoire
+
+> LMD, 22/08/2026, pour Raphaël. Compagnon de `STEMI Péi - Methodes, resultats et figures prets a coller (Desroche, 2026-08-21).md`.
+> **Les 8 figures sont déjà codées et générées** par `STEMI Péi - Script 4 figures du memoire (Desroche, 2026-08-22).py`. Tu les ouvres, tu les critiques, tu modifies ce que tu veux. Le code est fait pour être relu, pas pour être subi.
+>
+> **Pour les régénérer :** poser le script à côté des deux .xlsx (base traitée **et** extraction brute 287), puis `python3 <script>`. Il écrit un dossier `figures/` avec chaque figure en **PNG 300 dpi** (pour Word) et en **PDF vectoriel** (pour un manuscrit ou une revue). Aucun chiffre n'est saisi à la main : tout est recalculé depuis la base à chaque exécution.
+
+---
+
+## 1. La règle unique : une figure = un message, et le message est écrit dans le titre
+
+C'est la seule chose à retenir. Une figure de mémoire ou de papier ne sert pas à « montrer les données » : elle sert à **faire passer une phrase**. Si tu ne peux pas écrire cette phrase avant de coder, la figure n'a pas encore de raison d'exister.
+
+Le test, à faire sur chaque figure avant de l'insérer : **montre-la 5 secondes à quelqu'un qui ne connaît pas le sujet, puis demande-lui ce qu'il a compris.** S'il te répond « des barres avec des délais », la figure est ratée. S'il te répond « c'est le transport qui prend le plus de temps », elle est bonne.
+
+Trois conséquences pratiques :
+
+- **Le titre porte la conclusion, pas l'inventaire.** « Figure 2 — Où se perdent les minutes ? Décomposition en trois segments imputables » vaut mieux que « Figure 2 — Délais par catégorie ».
+- **Une figure qui dit deux choses doit être coupée en deux**, ou en deux panneaux côte à côte avec un titre chacun.
+- **Une figure qui ne dit rien devient un tableau.** Ce n'est pas une punition : un tableau bien fait est souvent plus honnête qu'un graphique décoratif.
+
+---
+
+## 2. Les sept règles de lisibilité, applicables partout
+
+| # | Règle | Pourquoi |
+|---|---|---|
+| 1 | **Médiane et IQR, jamais moyenne ± écart-type** sur des délais | les délais sont très asymétriques ; une moyenne de délai est tirée par 3 patients |
+| 2 | **Le `n` figure sur la figure**, pas seulement dans la légende | tes `n` changent d'une figure à l'autre (264, 258, 248, 226, 204, 192, 129, 68, 38, 22) : le lecteur doit voir lequel il regarde |
+| 3 | **Jamais de camembert**, jamais de 3D, jamais d'axe tronqué sur des minutes | l'œil compare mal les angles, très bien les longueurs |
+| 4 | **Barres horizontales** dès que les libellés de catégories sont longs | « Présentation spontanée au centre PCI » ne tient pas sous une barre verticale |
+| 5 | **Les mêmes trois couleurs pour les trois segments dans tout le mémoire** | le lecteur apprend le code une fois ; ici bleu = patient, orange = préhospitalier, vert = cardiologue |
+| 6 | **Chaque seuil affiché porte sa source sur la figure** | « cible ESC 120 min » et pas « objectif » ; un seuil sans source est indéfendable en soutenance |
+| 7 | **Écrire la valeur sur la barre** quand il y a moins d'une dizaine de barres | la figure devient lisible sans revenir au texte |
+
+**Deux pièges de ce mémoire en particulier :**
+
+- **La somme des médianes n'est pas la médiane du total.** 45 + 104,5 + 30 = 179,5, mais la médiane du délai total des régulés est 215 min. Une barre empilée de médianes se lit **segment par segment**, jamais comme un total. C'est écrit en note sous la figure 2 — ne l'enlève pas.
+- **Une médiane pile sur un seuil ne se commente pas avec une médiane.** Le door-to-balloon médian des régulés est exactement 30,0 min, mais **48,1 % dépassent 30 min** parce que 11 patients sont pile sur le seuil (19 sur l'ensemble des 248). Toujours le pourcentage, jamais « donc un sur deux dépasse ».
+- **Les seuils s'affichent « ≤ », jamais « < ».** L'ESC les énonce comme des délais maximaux (« maximum time », « within 10 min »), et c'est ainsi qu'ils sont calculés. Sur cette base, écrire « < » au lieu de « ≤ » ferait passer FMC → ECG de 63,2 % à 49,2 % : 14 points, pour un symbole.
+
+---
+
+## 3. Les 8 figures, une par une
+
+Pour chacune : le **message en une phrase** (c'est ce que tu écriras dans la légende), le **type de graphique et pourquoi celui-là**, et **ce qu'il faut vérifier** avant de l'insérer.
+
+### Figure 1 — Diagramme de flux
+
+**Message.** *De 287 procédures extraites à 264 analysées, en trois exclusions documentées.*
+**Type.** Boîtes et flèches verticales, exclusions à droite. Format imposé par l'usage (STROBE) — ne pas inventer.
+**À vérifier.** Que la somme des exclusions tombe juste : 287 − 14 − 3 − 2 = 268, puis − 4 = 264. Et que Vincent Piarrou-Cazala t'ait confirmé les trois motifs par écrit.
+**Piège.** Les 4 patients > 24 h **sortent de l'analyse principale, ils ne sortent pas de l'étude** : ils sont comptés à part et ce sont eux le vivier du volet qualitatif. Deux flèches distinctes, deux libellés distincts.
+
+### Figure 2 — Les trois segments imputables ⭐ **C'est LA figure du mémoire**
+
+**Message.** *Chez les patients régulés, plus de la moitié du temps se perd en préhospitalier ; chez ceux qui passent par un médecin de ville, il se perd avant même le premier contact.*
+**Type.** Deux panneaux : à gauche des **barres empilées horizontales** en minutes, à droite les **parts en %**. Empilé parce que les trois segments sont additifs et sans trou : c'est exactement ce que le lecteur doit voir.
+**À vérifier.** Les trois parts ne somment pas à 100 % — ce sont trois médianes de parts individuelles. La note sous la figure le dit ; elle est obligatoire.
+**Si tu ne devais garder qu'une figure, c'est celle-là.** Elle répond à la question du mémoire en une image.
+
+### Figure 3 — Horloge de stratégie selon le mode d'entrée et la reperfusion
+
+**Message.** *La cible des 120 minutes n'est tenue que chez les patients régulés ; la fibrinolyse allonge l'horloge ECG → guide dans tous les parcours.*
+**Type.** Barres groupées à deux axes croisés — mode d'entrée × fibrinolyse. **Remplace les 8 catégories de la version du 16/08**, dont plusieurs avaient moins de 10 patients : à faible effectif, une médiane par catégorie ne veut plus rien dire.
+**À vérifier.** Que chaque barre porte son `n`. Et que la note sur la cible à 60 min pour les présentations spontanées au centre PCI reste sous la figure : la ligne des 90 min ne les concerne pas.
+
+### Figure 4 — Nombre d'intervenants × délai système
+
+**Message.** *Chaque intervalle supplémentaire dans le parcours coûte des minutes.*
+**Type.** Boîtes à moustaches, une par nombre d'intervenants. Boîtes et pas barres, parce qu'ici c'est la **dispersion** qui compte autant que la médiane.
+**À vérifier.** Que `nb_intervenant` soit bien recalculé **hors salle de coronarographie** (1 à 4, pas 2 à 5) : la modalité « Coro - dernier intervenant » est présente chez les 268 et décalait toute la figure de 1. Et que le délai en ordonnée soit le **délai système ESC**, pas FMC → guide.
+**Réserve à écrire.** C'est une association descriptive, pas une causalité : les parcours à 4 intervenants sont aussi ceux qui viennent de plus loin.
+
+### Figure 4bis — Le temps intra-hospitalier ⭐ **le résultat le plus actionnable**
+
+**Message.** *Chez les patients qui se présentent seuls au CHU, tout le délai s'écoule à l'intérieur de l'établissement : 107 minutes de l'admission à la salle contre 21,5 chez les patients annoncés.*
+**Type.** Barres appariées annoncés *vs* présentation spontanée, plus un petit panneau sur le door-to-balloon des régulés.
+**À vérifier.** Que le `n = 23` soit visible : c'est un petit groupe et ça doit se voir. Que « admission → ECG » ne soit rempli que pour les présentations spontanées — chez les patients annoncés l'ECG précède l'admission, la valeur serait négative et n'aurait aucun sens. Et que la légende n'additionne pas les trois médianes : 17 + 95,5 ≠ 114,5, chacune a sa propre distribution.
+**Pourquoi elle vaut de l'or.** C'est le seul segment que la distance au centre ne peut pas expliquer, donc le seul sur lequel une action interne suffit.
+
+### Figure 5 — Fibrinolyse
+
+**Message.** *La fibrinolyse est décidée en 15 minutes médianes, mais la cible ESC des 10 minutes (≤ 10, inclusivement) n'est atteinte que dans 44,7 % des cas.*
+**Type.** Histogramme de la distribution avec la cible en trait rouge, plus le taux de conformité à côté. L'histogramme parce que la queue de distribution est le message.
+**À vérifier.** L'ancrage : c'est **ECG → bolus**, pas FMC → bolus. Les 10 minutes de l'ESC partent du diagnostic. C'est exactement l'erreur qu'on a corrigée le 21/08.
+
+### Figure 6 — Conformité aux cibles
+
+**Message.** *Aucune cible ESC n'est atteinte par plus des deux tiers des patients, et celle qui vise les présentations spontanées au centre l'est par 9 %.*
+**Type.** Barres horizontales triées, chacune portant sa source et son `n`.
+**À vérifier, et c'est important.** **Le door-to-balloon n'y figure pas** — et c'est volontaire : l'ESC ne fixe aucun seuil en minutes sur ce segment. Mettre une barre « door-to-balloon ≤ 30 min » dans une figure intitulée « conformité aux cibles ESC » revient à inventer une recommandation. Le seuil de 30 minutes vient de l'AHA, il est décrit à part (figure 4bis, panneau de droite) et jamais mélangé aux cibles européennes.
+
+### Figure 7 — Distributions complètes
+
+**Message.** *Les valeurs extrêmes sont réelles et restent dans les médianes.*
+**Type.** Violin plots avec la médiane et l'IQR superposés, les points > Q3 + 3 IQR marqués en rouge, échelle logarithmique au-delà de 60 minutes.
+**À vérifier.** Que les extrêmes soient **montrés et non retirés**, et que leur nombre soit écrit sous chaque violon. Sur des délais, une valeur haute est un vrai patient, pas une erreur de saisie — sauf preuve du contraire, patient par patient.
+
+---
+
+## 4. Ce que j'ai retiré de la spec du 21/08, et pourquoi
+
+**La figure « mesure AHA Mission: Lifeline » est supprimée.** Elle affichait un taux de conformité à la mesure AHACAD17 qui n'est pas calculable sur cette base : la mesure définit le temps de transport comme *arrivée au centre moins départ de la scène par l'EMS*, horodatage que France-PCI ne recueille pas, et elle exclut les patients fibrinolysés. Ce qui la remplace est le panneau de droite de la figure 4bis, qui décrit le door-to-balloon sans prétendre appliquer une mesure étrangère.
+
+**Leçon générale, et elle vaut au-delà de ce mémoire :** avant de calculer un taux de conformité à un indicateur publié, **lire la fiche technique de l'indicateur, pas seulement son titre**. Le titre dit « transport time ≥ 45 minutes » ; la fiche dit quels deux horodatages on soustrait et qui est exclu du dénominateur. C'est là que se joue la reproductibilité.
+
+---
+
+## 5. La grille d'auto-vérification, à passer sur chaque figure avant de l'insérer
+
+Coche les huit lignes. Une seule non cochée = la figure retourne à l'atelier.
+
+1. Je peux écrire le message de la figure en **une phrase**, et cette phrase est dans le titre.
+2. Le **`n`** est visible sur la figure, et c'est le bon `n` pour ce que je montre.
+3. Tout **seuil affiché porte sa source** (ESC 2023, ESC QI 10, AHA…).
+4. J'ai utilisé **médiane et IQR**, pas moyenne et écart-type.
+5. Les **couleurs sont les mêmes** que dans les autres figures du mémoire.
+6. La figure reste lisible **imprimée en noir et blanc** et **réduite à la moitié de sa taille**.
+7. Aucun chiffre de la figure n'est saisi à la main : **tout vient du script**.
+8. Le chiffre de la figure est **identique** au chiffre du même indicateur dans le texte et dans les tableaux. *(C'est le contrôle qui rattrape le plus d'erreurs.)*
+
+---
+
+## 6. Si tu veux modifier le code
+
+Il est écrit pour ça. Trois endroits utiles :
+
+- **Les couleurs** : les constantes `C_PATIENT`, `C_PREHOSP`, `C_CARDIO` en haut du fichier. Change-les une fois, tout le mémoire suit.
+- **Le format de sortie** : la fonction `enregistrer()` écrit PNG et PDF. Ajoute `svg` si tu veux retoucher dans Inkscape ou Illustrator.
+- **Les libellés** : le dictionnaire `LIB` en haut, pour les noms de parcours affichés.
+
+Et si une figure ne te plaît pas, dis-le — c'est plus rapide de la refaire que de la défendre en soutenance.
