@@ -1,56 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-STEMI Pei - Script 4 : les 8 figures du memoire, pretes a inserer
-=================================================================
-Desroche, 2026-08-22. Compagnon du "Guide des figures du memoire".
-
-USAGE
------
-  Poser ce script a cote de :
-     - STEMI Péi - Base traitée n=268 (Boulinguez, 2026-08-16).xlsx   (obligatoire)
-     - STEMI Péi - Extraction France-PCI ST+ ... (VPC, 2026-06-30).xlsx  (pour la fig. 1)
-  puis :  python3 "STEMI Péi - Script 4 figures du memoire (Desroche, 2026-08-22).py"
-
-SORTIE
-------
-  dossier "figures/" : figure1.png ... figure7.png  (+ .pdf vectoriel de chacune)
-  Toutes en 300 dpi, lisibles en noir et blanc, chiffres imprimes sur les barres.
-
-REGLES APPLIQUEES (cf. le guide)
---------------------------------
-  1 figure = 1 message. Le message est ECRIT dans le titre.
-  Medianes et IQR, jamais moyenne +/- ecart-type sur des delais.
-  Le n figure sur chaque barre ou dans l'etiquette d'axe.
-  Trois couleurs fixes pour les trois segments, les memes dans tout le memoire.
-  Aucun camembert. Aucun effet 3D. Aucun axe tronque sur des minutes.
-"""
 import os
 import numpy as np
 import pandas as pd
-
-# --------------------------------------------------------------------------
-# Robustesse des noms de fichiers : macOS enregistre les accents en NFD, la
-# plupart des autres systemes en NFC. Un nom ecrit "Péi" ici peut donc ne pas
-# correspondre octet pour octet au fichier sur le disque. On retrouve le
-# fichier par motif plutot que par nom exact.
-# --------------------------------------------------------------------------
-import glob as _glob
-import unicodedata as _ud
-
-
-def trouver(nom_attendu, motifs):
-    """Retourne le chemin du fichier, en tolerant les variantes d'accents."""
-    if os.path.exists(nom_attendu):
-        return nom_attendu
-    cible = _ud.normalize("NFC", nom_attendu).lower()
-    for f in os.listdir("."):
-        if _ud.normalize("NFC", f).lower() == cible:
-            return f
-    for motif in motifs:
-        trouves = sorted(_glob.glob(motif))
-        if trouves:
-            return trouves[0]
-    return nom_attendu
 
 import matplotlib
 matplotlib.use("Agg")
